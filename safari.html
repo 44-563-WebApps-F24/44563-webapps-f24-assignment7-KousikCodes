@@ -23,10 +23,8 @@
     <p class="lead text-center">Click on the locations to find rare animals, watch out for the lion.</p>
     <div class="alert alert-secondary" id="locations">Number of locations checked is zero.</div>
     <div class="alert alert-secondary" id="score">Score is zero.</div>
-    <p class="text-primary" id="help" onclick="displayHelp()">Click for help.</p>
-    <div class="alert alert-secondary" id="helpReport" style="display:none;">Help report: Find zebras for more points, avoid the lion!</div>
-    
-    
+    <p class="text-primary cursor-pointer" id="helpButton" onclick="help()">Click for help.</p>
+    <div class="alert alert-secondary" id="hep">Help report: </div>
     <div class="container">
       <div class="row g-3">
         <script>
@@ -44,7 +42,6 @@
         </script>
       </div>
     </div>
-
   </div>
 
   <script>
@@ -54,13 +51,10 @@
     const zebraLocations = [1, 8, 12, 22, 34];
     const lionLocation = 14;
     let gameOver = false;
-
     function check(position) {
       if (gameOver) return;
-
       const imgId = ids[position];
       const imgElement = document.getElementById(imgId);
-
       if (zebraLocations.includes(position)) {
         imgElement.src = "zebra.jpg";
         score += 4;
@@ -72,17 +66,34 @@
         imgElement.src = "elephant.jpg";
         score += 1;
       }
-
       locationsVisited++;
       lastLocation = position;
-
       document.getElementById("score").innerHTML = `Score is ${score}.`;
       document.getElementById("locations").innerHTML = `Number of locations checked is ${locationsVisited}.`;
     }
-
-    function displayHelp() {
-      const helpElement = document.getElementById("helpReport");
-      helpElement.style.display = helpElement.style.display === "none" ? "block" : "none";
+    function help() {
+      if (gameOver) return;
+      const col = lastLocation % 6;
+      const row = Math.floor(lastLocation / 6);
+      const lionCol = lionLocation % 6;
+      const lionRow = Math.floor(lionLocation / 6);
+      const nearbyLocations = [
+        (lastLocation + 35) % 36, 
+        (lastLocation + 1) % 36, 
+        (lastLocation + 30) % 36, 
+        (lastLocation + 6) % 36   
+      ];
+      for (let loc of nearbyLocations) {
+        if (zebraLocations.includes(loc)) {
+          document.getElementById("hep").innerHTML = "I see stripes";
+          return;
+        }
+      }
+      if (Math.abs(lionCol - col) <= 1 && Math.abs(lionRow - row) <= 1) {
+        document.getElementById("hep").innerHTML = "Rawr";
+        return;
+      }
+      document.getElementById("hep").innerHTML = "It's grey";
     }
   </script>
 </body>
