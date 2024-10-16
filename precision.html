@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Speed Check Page</title>
+  <title>Speed Check Pagw</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -12,30 +12,31 @@
 <body>
 
   <h2>Kousik Kuchipudi Speed Check</h2> 
+
   <div id="target">Your time: </div>
-  <div id="countdown">Count: 5</div>
+  <div id="counter">Count: 5</div>
+
   <button type="button" class="btn btn-primary" onclick="startTimer()">Start Timer</button>
   <button type="button" class="btn btn-danger" onclick="recordTime()">Stop Timer</button>
 
   <script>
-    let stopTime; 
-    let startTime; 
-    let count = 5; 
-    let timer;
+    let stopTime = undefined; 
+    let startTimestamp; 
+    let count = 5;
 
     function startTimer() {
-      startTime = Date.now(); 
-      stopTime = undefined; 
+      startTimestamp = Date.now(); 
+      stopTime = undefined;
       count = 5;
 
       for (let i = 0; i < 5; i++) {
         setTimeout(() => {
-          document.getElementById('countdown').innerHTML = "Count: " + (4 - i);
+          document.getElementById('counter').innerHTML = "Count: " + (4 - i);
         }, i * 1000);
       }
 
       setTimeout(() => {
-        document.getElementById('countdown').innerHTML = "Count: 0";
+        document.getElementById('counter').innerHTML = "Count: 0";
       }, 4000);
 
       setTimeout(() => {
@@ -47,10 +48,9 @@
 
     function recordTime() {
       stopTime = Date.now(); 
-      clearTimeout(timer); 
-      
-      const timeElapsed = (stopTime - startTime) / 1000;
-      
+      const timeElapsed = (stopTime - startTimestamp) / 1000; 
+      console.log("Stop time:", stopTime); 
+
       if (timeElapsed <= 4) {
         document.getElementById('target').innerHTML = "Time was: " + timeElapsed.toFixed(2) + " seconds";
       } else {
