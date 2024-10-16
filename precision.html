@@ -10,42 +10,33 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-
   <h2>Kousik Kuchipudi Speed Check</h2> 
-
   <div id="target">Your time: </div>
   <div id="counter">Count: 5</div>
-
   <button type="button" class="btn btn-primary" onclick="startTimer()">Start Timer</button>
   <button type="button" class="btn btn-danger" onclick="recordTime()">Stop Timer</button>
-
   <script>
     let stopTime = undefined; 
     let startTimestamp; 
     let count = 5;
-
     function startTimer() {
       startTimestamp = Date.now(); 
       stopTime = undefined;
       count = 5;
-
       for (let i = 0; i < 5; i++) {
         setTimeout(() => {
           document.getElementById('counter').innerHTML = "Count: " + (4 - i);
         }, i * 1000);
       }
-
       setTimeout(() => {
         document.getElementById('counter').innerHTML = "Count: 0";
       }, 4000);
-
       setTimeout(() => {
         if (stopTime === undefined) {
           document.getElementById('target').innerHTML = "Too Slow!";
         }
       }, 4000);
     }
-
     function recordTime() {
       stopTime = Date.now(); 
       const timeElapsed = (stopTime - startTimestamp) / 1000; 
@@ -58,6 +49,5 @@
       }
     }
   </script>
-
 </body>
 </html>
