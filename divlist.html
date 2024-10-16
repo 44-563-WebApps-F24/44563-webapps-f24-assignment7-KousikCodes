@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Div - List Page</title>
+  <title>Kousik Kuchipudi Builds List with Divs</title>
   <style>
     .flex-container {
       display: flex;
@@ -10,7 +10,6 @@
     }
 
     .flex-container > div {
-      /* div children of the flex container */
       background-color: #f1f1f1;
       margin: 10px;
       padding: 20px;
@@ -41,6 +40,7 @@
   <button onclick="addEnd()">Add End</button>
   <button onclick="addFront()">Add Front</button>
   <button onclick="removeMiddle()">Remove</button>
+  <button onclick="swap()">Swap</button>
   <script>
     function addEnd() {
       let input = document.getElementById("inputText").value;
@@ -54,6 +54,7 @@
       let container = document.getElementById("target");
       container.appendChild(newDiv);
     }
+
     function addFront() {
       let input = document.getElementById("inputText").value;
       if (input === "") {
@@ -67,6 +68,7 @@
       let container = document.getElementById("target");
       container.insertBefore(newDiv, container.firstChild);
     }
+
     function removeMiddle() {
       let divListItems = document.getElementsByClassName("divlist");
       let length = divListItems.length;
@@ -76,6 +78,34 @@
         divListItems[middleIndex].remove();
       } else {
         alert("No items to remove!");
+      }
+    }
+
+    function swap() {
+      let divListItems = document.getElementsByClassName("divlist");
+      let length = divListItems.length;
+      if (length < 2) {
+        alert("Need at least 2 items to swap.");
+        return;
+      }
+
+      let index1 = Math.floor(Math.random() * length);
+      let index2;
+      do {
+        index2 = Math.floor(Math.random() * length);
+      } while (index1 === index2); // Ensure different items
+
+      // Swap elements
+      let container = document.getElementById("target");
+      let item1 = divListItems[index1];
+      let item2 = divListItems[index2];
+
+      if (index1 < index2) {
+        container.insertBefore(item2, item1);
+        container.insertBefore(item1, divListItems[index2]);
+      } else {
+        container.insertBefore(item1, item2);
+        container.insertBefore(item2, divListItems[index1]);
       }
     }
   </script>

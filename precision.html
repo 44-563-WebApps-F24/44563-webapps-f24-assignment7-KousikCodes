@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Speed Check Pagw</title>
+  <title>Kousik Kuchipudi Speed Check</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -16,33 +16,39 @@
   <button type="button" class="btn btn-primary" onclick="startTimer()">Start Timer</button>
   <button type="button" class="btn btn-danger" onclick="recordTime()">Stop Timer</button>
   <script>
-    let stopTime = undefined; 
-    let startTimestamp; 
-    let count = 5;
+    let stopTime = undefined;
+    let startTimestamp;
+    let count;
+
     function startTimer() {
-      startTimestamp = Date.now(); 
+      startTimestamp = Date.now();
       stopTime = undefined;
-      count = 5;
-      for (let i = 0; i < 5; i++) {
+      count = Math.floor(Math.random() * 9) + 2;
+      document.getElementById('counter').innerHTML = `Count: ${count}`;
+
+      for (let i = 0; i < count; i++) {
         setTimeout(() => {
-          document.getElementById('counter').innerHTML = "Count: " + (4 - i);
+          document.getElementById('counter').innerHTML = "Count: " + (count - 1 - i);
         }, i * 1000);
       }
+
       setTimeout(() => {
         document.getElementById('counter').innerHTML = "Count: 0";
-      }, 4000);
+      }, count * 1000);
+
       setTimeout(() => {
         if (stopTime === undefined) {
           document.getElementById('target').innerHTML = "Too Slow!";
         }
-      }, 4000);
+      }, count * 1000);
     }
-    function recordTime() {
-      stopTime = Date.now(); 
-      const timeElapsed = (stopTime - startTimestamp) / 1000; 
-      console.log("Stop time:", stopTime); 
 
-      if (timeElapsed <= 4) {
+    function recordTime() {
+      stopTime = Date.now();
+      const timeElapsed = (stopTime - startTimestamp) / 1000;
+      console.log("Stop time:", stopTime);
+
+      if (timeElapsed <= count) {
         document.getElementById('target').innerHTML = "Time was: " + timeElapsed.toFixed(2) + " seconds";
       } else {
         document.getElementById('target').innerHTML = "Too Slow!";
